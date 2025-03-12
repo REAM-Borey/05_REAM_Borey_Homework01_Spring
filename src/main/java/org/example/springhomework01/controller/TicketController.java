@@ -93,8 +93,24 @@ public class TicketController {
 
         return null;
     }
-//    @DeleteMapping
-//    public List<Ticket> deleteById(@RequestParam ){
-//        return null;
-//    }
+    @DeleteMapping("/{ticket-id}")
+    public String deleteTicketById(@PathVariable("ticket-id") Long ticketId){
+        for (Ticket ticket: TICKETS){
+            if (ticket.getTicketId().equals(ticketId)){
+                TICKETS.remove(ticket);
+                return "Delete ticket by id is successful";
+            }
+        }
+        return null;
+    }
+    @GetMapping("/search")
+    public List<Ticket> searchTicketByName(@RequestParam String name){
+        List<Ticket> tk = new ArrayList<>();
+        for (Ticket ticket: TICKETS){
+            if (ticket.getPassengerName().contains(name)){
+                tk.add(ticket);
+            }
+        }
+        return tk;
+    }
 }
